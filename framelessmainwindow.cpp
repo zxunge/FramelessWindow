@@ -50,21 +50,21 @@ void FramelessMainWindow::calculateCurrentStrechRect()
 {
     m_leftTopRect = QRect(0, 0, STRETCH_RECT_WIDTH, STRETCH_RECT_HEIGHT);
     m_leftBottomRect =
-            QRect(0, this->height() - STRETCH_RECT_HEIGHT, STRETCH_RECT_WIDTH, STRETCH_RECT_WIDTH);
+            QRect(0, height() - STRETCH_RECT_HEIGHT, STRETCH_RECT_WIDTH, STRETCH_RECT_WIDTH);
     m_rightTopRect =
-            QRect(this->width() - STRETCH_RECT_WIDTH, 0, STRETCH_RECT_WIDTH, STRETCH_RECT_HEIGHT);
+            QRect(width() - STRETCH_RECT_WIDTH, 0, STRETCH_RECT_WIDTH, STRETCH_RECT_HEIGHT);
     m_rightBottomRect =
-            QRect(this->width() - STRETCH_RECT_WIDTH, this->height() - STRETCH_RECT_HEIGHT,
+            QRect(width() - STRETCH_RECT_WIDTH, height() - STRETCH_RECT_HEIGHT,
                   STRETCH_RECT_WIDTH, STRETCH_RECT_HEIGHT);
 
-    m_topBorderRect = QRect(STRETCH_RECT_WIDTH, 0, this->width() - STRETCH_RECT_WIDTH * 2,
+    m_topBorderRect = QRect(STRETCH_RECT_WIDTH, 0, width() - STRETCH_RECT_WIDTH * 2,
                             STRETCH_RECT_HEIGHT);
-    m_rightBorderRect = QRect(this->width() - STRETCH_RECT_WIDTH, STRETCH_RECT_HEIGHT,
-                              STRETCH_RECT_WIDTH, this->height() - STRETCH_RECT_HEIGHT * 2);
-    m_bottomBorderRect = QRect(STRETCH_RECT_WIDTH, this->height() - STRETCH_RECT_HEIGHT,
-                               this->width() - STRETCH_RECT_WIDTH * 2, STRETCH_RECT_HEIGHT);
+    m_rightBorderRect = QRect(width() - STRETCH_RECT_WIDTH, STRETCH_RECT_HEIGHT,
+                              STRETCH_RECT_WIDTH, height() - STRETCH_RECT_HEIGHT * 2);
+    m_bottomBorderRect = QRect(STRETCH_RECT_WIDTH, height() - STRETCH_RECT_HEIGHT,
+                               width() - STRETCH_RECT_WIDTH * 2, STRETCH_RECT_HEIGHT);
     m_leftBorderRect = QRect(0, STRETCH_RECT_HEIGHT, STRETCH_RECT_WIDTH,
-                             this->height() - STRETCH_RECT_HEIGHT * 2);
+                             height() - STRETCH_RECT_HEIGHT * 2);
 }
 
 FramelessMainWindow::WindowStretchRectState
@@ -130,13 +130,13 @@ void FramelessMainWindow::updateWindowSize()
 
     switch (m_stretchRectState) {
     case LEFT_BORDER: {
-        if (this->geometry().width() <= m_windowMinWidth && delValueX <= 0) {
+        if (geometry().width() <= m_windowMinWidth && delValueX <= 0) {
             return;
         }
         QPoint bottomLeftPoint = windowRect.bottomLeft();
         bottomLeftPoint.setX(bottomLeftPoint.x() - delValueX);
         windowRect.setBottomLeft(bottomLeftPoint);
-        this->setGeometry(windowRect);
+        setGeometry(windowRect);
         break;
     }
 
@@ -144,18 +144,18 @@ void FramelessMainWindow::updateWindowSize()
         QPoint bottomRightPoint = windowRect.bottomRight();
         bottomRightPoint.setX(bottomRightPoint.x() - delValueX);
         windowRect.setBottomRight(bottomRightPoint);
-        this->setGeometry(windowRect);
+        setGeometry(windowRect);
         break;
     }
 
     case TOP_BORDER: {
-        if (this->geometry().height() <= m_windowMinHeight && delValueY <= 0) {
+        if (geometry().height() <= m_windowMinHeight && delValueY <= 0) {
             return;
         }
         QPoint topLeftPoint = windowRect.topLeft();
         topLeftPoint.setY(topLeftPoint.y() - delValueY);
         windowRect.setTopLeft(topLeftPoint);
-        this->setGeometry(windowRect);
+        setGeometry(windowRect);
         break;
     }
 
@@ -163,20 +163,20 @@ void FramelessMainWindow::updateWindowSize()
         QPoint bottomRightPoint = windowRect.bottomRight();
         bottomRightPoint.setY(bottomRightPoint.y() - delValueY);
         windowRect.setBottomRight(bottomRightPoint);
-        this->setGeometry(windowRect);
+        setGeometry(windowRect);
         break;
     }
 
     case LEFT_TOP_RECT: {
-        if (this->geometry().width() - 3 <= m_windowMinWidth && delValueX <= 0
-            && this->geometry().height() - 3 <= m_windowMinHeight && delValueY <= 0) {
+        if (geometry().width() - 3 <= m_windowMinWidth && delValueX <= 0
+            && geometry().height() - 3 <= m_windowMinHeight && delValueY <= 0) {
             return;
         }
         int a{};
-        if (this->geometry().width() - 3 <= m_windowMinWidth && delValueX <= 0) {
+        if (geometry().width() - 3 <= m_windowMinWidth && delValueX <= 0) {
             a = 1;
         }
-        if (this->geometry().height() - 3 <= m_windowMinHeight && delValueY <= 0) {
+        if (geometry().height() - 3 <= m_windowMinHeight && delValueY <= 0) {
             a = 2;
         }
         if (a == 0) {
@@ -184,33 +184,33 @@ void FramelessMainWindow::updateWindowSize()
             topLeftPoint.setX(topLeftPoint.x() - delValueX);
             topLeftPoint.setY(topLeftPoint.y() - delValueY);
             windowRect.setTopLeft(topLeftPoint);
-            this->setGeometry(windowRect);
+            setGeometry(windowRect);
         } else if (a == 1) {
             QPoint topLeftPoint = windowRect.topLeft();
-            topLeftPoint.setX(this->geometry().x());
+            topLeftPoint.setX(geometry().x());
             topLeftPoint.setY(topLeftPoint.y() - delValueY);
             windowRect.setTopLeft(topLeftPoint);
-            this->setGeometry(windowRect);
+            setGeometry(windowRect);
         } else if (a == 2) {
             QPoint topLeftPoint = windowRect.topLeft();
             topLeftPoint.setX(topLeftPoint.x() - delValueX);
-            topLeftPoint.setY(this->geometry().y());
+            topLeftPoint.setY(geometry().y());
             windowRect.setTopLeft(topLeftPoint);
-            this->setGeometry(windowRect);
+            setGeometry(windowRect);
         }
         break;
     }
 
     case RIGHT_TOP_RECT: {
-        if (this->geometry().width() - 3 <= m_windowMinWidth && delValueX <= 0
-            && this->geometry().height() - 3 <= m_windowMinHeight && delValueY <= 0) {
+        if (geometry().width() - 3 <= m_windowMinWidth && delValueX <= 0
+            && geometry().height() - 3 <= m_windowMinHeight && delValueY <= 0) {
             return;
         }
         int a{};
-        if (this->geometry().width() - 3 <= m_windowMinWidth && delValueX <= 0) {
+        if (geometry().width() - 3 <= m_windowMinWidth && delValueX <= 0) {
             a = 1;
         }
-        if (this->geometry().height() - 3 <= m_windowMinHeight && delValueY <= 0) {
+        if (geometry().height() - 3 <= m_windowMinHeight && delValueY <= 0) {
             a = 2;
         }
 
@@ -219,19 +219,19 @@ void FramelessMainWindow::updateWindowSize()
             topRightPoint.setX(topRightPoint.x() - delValueX);
             topRightPoint.setY(topRightPoint.y() - delValueY);
             windowRect.setTopRight(topRightPoint);
-            this->setGeometry(windowRect);
+            setGeometry(windowRect);
         } else if (a == 1) {
             QPoint topRightPoint = windowRect.topRight();
-            topRightPoint.setX(this->geometry().x());
+            topRightPoint.setX(geometry().x());
             topRightPoint.setY(topRightPoint.y() - delValueY);
             windowRect.setTopRight(topRightPoint);
-            this->setGeometry(windowRect);
+            setGeometry(windowRect);
         } else if (a == 2) {
             QPoint topRightPoint = windowRect.topRight();
             topRightPoint.setX(topRightPoint.x() - delValueX);
-            topRightPoint.setY(this->geometry().y());
+            topRightPoint.setY(geometry().y());
             windowRect.setTopRight(topRightPoint);
-            this->setGeometry(windowRect);
+            setGeometry(windowRect);
         }
         break;
     }
@@ -241,20 +241,20 @@ void FramelessMainWindow::updateWindowSize()
         bottomRightPoint.setX(bottomRightPoint.x() - delValueX);
         bottomRightPoint.setY(bottomRightPoint.y() - delValueY);
         windowRect.setBottomRight(bottomRightPoint);
-        this->setGeometry(windowRect);
+        setGeometry(windowRect);
         break;
     }
 
     case LEFT_BOTTOM_RECT: {
-        if (this->geometry().width() - 3 <= m_windowMinWidth && delValueX <= 0
-            && this->geometry().height() - 3 <= m_windowMinHeight && delValueY <= 0) {
+        if (geometry().width() - 3 <= m_windowMinWidth && delValueX <= 0
+            && geometry().height() - 3 <= m_windowMinHeight && delValueY <= 0) {
             return;
         }
         int a{};
-        if (this->geometry().width() - 3 <= m_windowMinWidth && delValueX <= 0) {
+        if (geometry().width() - 3 <= m_windowMinWidth && delValueX <= 0) {
             a = 1;
         }
-        if (this->geometry().height() - 3 <= m_windowMinHeight && delValueY <= 0) {
+        if (geometry().height() - 3 <= m_windowMinHeight && delValueY <= 0) {
             a = 2;
         }
         if (a == 0) {
@@ -262,19 +262,19 @@ void FramelessMainWindow::updateWindowSize()
             bottomLeftPoint.setX(bottomLeftPoint.x() - delValueX);
             bottomLeftPoint.setY(bottomLeftPoint.y() - delValueY);
             windowRect.setBottomLeft(bottomLeftPoint);
-            this->setGeometry(windowRect);
+            setGeometry(windowRect);
         } else if (a == 1) {
             QPoint bottomLeftPoint = windowRect.bottomLeft();
-            bottomLeftPoint.setX(this->geometry().x());
+            bottomLeftPoint.setX(geometry().x());
             bottomLeftPoint.setY(bottomLeftPoint.y() - delValueY);
             windowRect.setBottomLeft(bottomLeftPoint);
-            this->setGeometry(windowRect);
+            setGeometry(windowRect);
         } else if (a == 2) {
             QPoint bottomLeftPoint = windowRect.bottomLeft();
             bottomLeftPoint.setX(bottomLeftPoint.x() - delValueX);
-            bottomLeftPoint.setY(this->geometry().y());
+            bottomLeftPoint.setY(geometry().y());
             windowRect.setBottomLeft(bottomLeftPoint);
-            this->setGeometry(windowRect);
+            setGeometry(windowRect);
         }
         break;
     }
@@ -339,7 +339,9 @@ void FramelessMainWindow::mouseReleaseEvent(QMouseEvent *event)
 
 void FramelessMainWindow::mouseDoubleClickEvent(QMouseEvent *event)
 {
-    tbtnMaxClicked();
+    if (ui->titleWidget->underMouse()) {
+        tbtnMaxClicked();
+    }
     QMainWindow::mouseDoubleClickEvent(event);
 }
 
@@ -362,7 +364,7 @@ void FramelessMainWindow::changeEvent(QEvent *event)
         if (nullptr != stateEvent) {
             if (windowState() == Qt::WindowNoState
                 && stateEvent->oldState() == Qt::WindowMaximized) {
-                ui->centralWidget->setStyleSheet("#centralWidget {border-radius:10px;}");
+                ui->centralWidget->setStyleSheet(u"#centralWidget {border-radius:10px;}"_s);
                 ui->tailWidget->setStyleSheet(u"#tailWidget{"
                                               "background-color: rgb(226, 231, 237);"
                                               "color: rgb(0, 0, 0);"
@@ -400,7 +402,7 @@ void FramelessMainWindow::changeEvent(QEvent *event)
                                              "color: rgb(255, 255, 255);"
                                              "background-color: rgb(200, 0, 0);"
                                              "border: none;}"_s);
-                ui->tbtnMax->setIcon(QIcon(":/icons/normal-light.png"));
+                ui->tbtnMax->setIcon(QIcon(u":/icons/normal-light.png"_s));
             }
         }
     }
@@ -431,3 +433,4 @@ void FramelessMainWindow::tbtnMinClicked()
 {
     showMinimized();
 }
+
