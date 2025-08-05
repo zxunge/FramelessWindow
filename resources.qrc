@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/close-dark.png</file>
+        <file>icons/max-dark.png</file>
+        <file>icons/min-dark.png</file>
+        <file>icons/normal-dark.png</file>
+        <file>icons/close-light.png</file>
+        <file>icons/max-light.png</file>
+        <file>icons/min-light.png</file>
+        <file>icons/normal-light.png</file>
+    </qresource>
+</RCC>
