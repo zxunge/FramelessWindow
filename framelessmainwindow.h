@@ -13,6 +13,8 @@ class QVBoxLayout;
 
 class FramelessMainWindow : public QMainWindow
 {
+    Q_OBJECT
+
 public:
     FramelessMainWindow(QWidget *parent = nullptr);
     ~FramelessMainWindow();
@@ -86,3 +88,4 @@ private:
 };
 
 #endif // FRAMELESSMAINWINDOW_H
+
