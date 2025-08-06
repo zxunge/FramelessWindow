@@ -28,7 +28,7 @@ FramelessMainWindow::FramelessMainWindow(QWidget *parent)
 
     QGraphicsDropShadowEffect *defaultShadow = new QGraphicsDropShadowEffect();
     defaultShadow->setBlurRadius(15);
-    defaultShadow->setColor(QColor(0, 0, 0));
+    defaultShadow->setColor(Qt::black);
     defaultShadow->setOffset(0, 0);
     ui->centralWidget->setGraphicsEffect(defaultShadow);
 
@@ -53,18 +53,17 @@ void FramelessMainWindow::calculateCurrentStrechRect()
             QRect(0, height() - STRETCH_RECT_HEIGHT, STRETCH_RECT_WIDTH, STRETCH_RECT_WIDTH);
     m_rightTopRect =
             QRect(width() - STRETCH_RECT_WIDTH, 0, STRETCH_RECT_WIDTH, STRETCH_RECT_HEIGHT);
-    m_rightBottomRect =
-            QRect(width() - STRETCH_RECT_WIDTH, height() - STRETCH_RECT_HEIGHT,
-                  STRETCH_RECT_WIDTH, STRETCH_RECT_HEIGHT);
+    m_rightBottomRect = QRect(width() - STRETCH_RECT_WIDTH, height() - STRETCH_RECT_HEIGHT,
+                              STRETCH_RECT_WIDTH, STRETCH_RECT_HEIGHT);
 
-    m_topBorderRect = QRect(STRETCH_RECT_WIDTH, 0, width() - STRETCH_RECT_WIDTH * 2,
-                            STRETCH_RECT_HEIGHT);
-    m_rightBorderRect = QRect(width() - STRETCH_RECT_WIDTH, STRETCH_RECT_HEIGHT,
-                              STRETCH_RECT_WIDTH, height() - STRETCH_RECT_HEIGHT * 2);
+    m_topBorderRect =
+            QRect(STRETCH_RECT_WIDTH, 0, width() - STRETCH_RECT_WIDTH * 2, STRETCH_RECT_HEIGHT);
+    m_rightBorderRect = QRect(width() - STRETCH_RECT_WIDTH, STRETCH_RECT_HEIGHT, STRETCH_RECT_WIDTH,
+                              height() - STRETCH_RECT_HEIGHT * 2);
     m_bottomBorderRect = QRect(STRETCH_RECT_WIDTH, height() - STRETCH_RECT_HEIGHT,
                                width() - STRETCH_RECT_WIDTH * 2, STRETCH_RECT_HEIGHT);
-    m_leftBorderRect = QRect(0, STRETCH_RECT_HEIGHT, STRETCH_RECT_WIDTH,
-                             height() - STRETCH_RECT_HEIGHT * 2);
+    m_leftBorderRect =
+            QRect(0, STRETCH_RECT_HEIGHT, STRETCH_RECT_WIDTH, height() - STRETCH_RECT_HEIGHT * 2);
 }
 
 FramelessMainWindow::WindowStretchRectState
@@ -365,11 +364,11 @@ void FramelessMainWindow::changeEvent(QEvent *event)
             if (windowState() == Qt::WindowNoState
                 && stateEvent->oldState() == Qt::WindowMaximized) {
                 ui->centralWidget->setStyleSheet(u"#centralWidget {border-radius:10px;}"_s);
-				ui->titleWidget->setStyleSheet(u"#titleWidget{"
+                ui->titleWidget->setStyleSheet(u"#titleWidget{"
                                                "background-color: rgb(226, 231, 237);"
                                                "color: rgb(0, 0, 0);"
                                                "border-top-left-radius: 10px;"
-				                               "border-top-right-radius: 10px;}"_s);
+                                               "border-top-right-radius: 10px;}"_s);
                 ui->tailWidget->setStyleSheet(u"#tailWidget{"
                                               "background-color: rgb(226, 231, 237);"
                                               "color: rgb(0, 0, 0);"
@@ -391,11 +390,11 @@ void FramelessMainWindow::changeEvent(QEvent *event)
                 ui->centralWidget->setStyleSheet(
                         u"#centralWidget {background-color: rgb(255, 255, 255);"
                         "border-radius:0px;}"_s);
-				ui->titleWidget->setStyleSheet(u"#titleWidget{"
+                ui->titleWidget->setStyleSheet(u"#titleWidget{"
                                                "background-color: rgb(226, 231, 237);"
                                                "color: rgb(0, 0, 0);"
                                                "border-top-left-radius: 0px;"
-				                               "border-top-right-radius: 0px;}"_s);
+                                               "border-top-right-radius: 0px;}"_s);
                 ui->tailWidget->setStyleSheet(u"#tailWidget{"
                                               "background-color: rgb(226, 231, 237);"
                                               "color: rgb(0, 0, 0);"
@@ -416,25 +415,25 @@ void FramelessMainWindow::changeEvent(QEvent *event)
             }
         }
     }
-	QMainWindow::changeEvent(event);
+    QMainWindow::changeEvent(event);
 }
 
 void FramelessMainWindow::focusInEvent(QFocusEvent *event)
 {
-	QMainWindow::focusInEvent(event);
-	QGraphicsDropShadowEffect *defaultShadow = new QGraphicsDropShadowEffect();
+    QMainWindow::focusInEvent(event);
+    QGraphicsDropShadowEffect *defaultShadow = new QGraphicsDropShadowEffect();
     defaultShadow->setBlurRadius(15);
-    defaultShadow->setColor(QColor(0, 0, 0));
+    defaultShadow->setColor(Qt::black);
     defaultShadow->setOffset(0, 0);
     ui->centralWidget->setGraphicsEffect(defaultShadow);
 }
 
 void FramelessMainWindow::focusOutEvent(QFocusEvent *event)
 {
-	QMainWindow::focusOutEvent(event);
-	QGraphicsDropShadowEffect *defaultShadow = new QGraphicsDropShadowEffect();
+    QMainWindow::focusOutEvent(event);
+    QGraphicsDropShadowEffect *defaultShadow = new QGraphicsDropShadowEffect();
     defaultShadow->setBlurRadius(15);
-    defaultShadow->setColor(QColor(255, 255, 255));
+    defaultShadow->setColor(Qt::transparent);
     defaultShadow->setOffset(0, 0);
     ui->centralWidget->setGraphicsEffect(defaultShadow);
 }
@@ -467,10 +466,10 @@ void FramelessMainWindow::tbtnMinClicked()
 
 void FramelessMainWindow::setWindowTitle(const QString &title)
 {
-	ui->labTitle->setText(title);
+    ui->labTitle->setText(title);
 }
 
 void FramelessMainWindow::showMessage(const QString &msg)
 {
-	ui->labStatus->setText(msg);
+    ui->labStatus->setText(msg);
 }

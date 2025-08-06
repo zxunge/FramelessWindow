@@ -18,13 +18,13 @@ class FramelessMainWindow : public QMainWindow
 public:
     FramelessMainWindow(QWidget *parent = nullptr);
     ~FramelessMainWindow();
-	
-	void setSupportStretch(bool isSupportStretch);
-	
-	void setWindowTitle(const QString &title);
-	void showMessage(const QString &msg);
-	void setMinimumHeight(int height) { m_windowMinHeight = height; }
-	void setMinimumWidth(int width) { m_windowMinWidth = width; }
+
+    void setSupportStretch(bool isSupportStretch);
+
+    void setWindowTitle(const QString &title);
+    void showMessage(const QString &msg);
+    void setMinimumHeight(int height) { m_windowMinHeight = height; }
+    void setMinimumWidth(int width) { m_windowMinWidth = width; }
 
 private:
     enum WindowStretchRectState {
@@ -52,8 +52,8 @@ protected:
     void mouseDoubleClickEvent(QMouseEvent *event) override;
     void showEvent(QShowEvent *event) override;
     void changeEvent(QEvent *event) override;
-	void focusInEvent(QFocusEvent *event) override;
-	void focusOutEvent(QFocusEvent *event) override;
+    void focusInEvent(QFocusEvent *event) override;
+    void focusOutEvent(QFocusEvent *event) override;
 
 private slots:
     void tbtnCloseClicked();
@@ -96,4 +96,3 @@ private:
 };
 
 #endif // FRAMELESSMAINWINDOW_H
-
