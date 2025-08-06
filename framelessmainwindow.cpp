@@ -365,6 +365,11 @@ void FramelessMainWindow::changeEvent(QEvent *event)
             if (windowState() == Qt::WindowNoState
                 && stateEvent->oldState() == Qt::WindowMaximized) {
                 ui->centralWidget->setStyleSheet(u"#centralWidget {border-radius:10px;}"_s);
+				ui->titleWidget->setStyleSheet(u"#titleWidget{"
+                                               "background-color: rgb(226, 231, 237);"
+                                               "color: rgb(0, 0, 0);"
+                                               "border-top-left-radius: 10px;"
+				                               "border-top-right-radius: 10px;}"_s);
                 ui->tailWidget->setStyleSheet(u"#tailWidget{"
                                               "background-color: rgb(226, 231, 237);"
                                               "color: rgb(0, 0, 0);"
@@ -378,7 +383,7 @@ void FramelessMainWindow::changeEvent(QEvent *event)
                                              "image: none;}"
                                              "QToolButton:hover {"
                                              "color: rgb(255, 255, 255);"
-                                             "background-color: rgb(200, 0, 0);"
+                                             "background-color: rgb(180, 0, 0);"
                                              "border: none;}"_s);
                 ui->tbtnMax->setIcon(QIcon(u":/icons/max-light.png"_s));
             } else if (windowState() == Qt::WindowMaximized
@@ -386,6 +391,11 @@ void FramelessMainWindow::changeEvent(QEvent *event)
                 ui->centralWidget->setStyleSheet(
                         u"#centralWidget {background-color: rgb(255, 255, 255);"
                         "border-radius:0px;}"_s);
+				ui->titleWidget->setStyleSheet(u"#titleWidget{"
+                                               "background-color: rgb(226, 231, 237);"
+                                               "color: rgb(0, 0, 0);"
+                                               "border-top-left-radius: 0px;"
+				                               "border-top-right-radius: 0px;}"_s);
                 ui->tailWidget->setStyleSheet(u"#tailWidget{"
                                               "background-color: rgb(226, 231, 237);"
                                               "color: rgb(0, 0, 0);"
@@ -400,12 +410,33 @@ void FramelessMainWindow::changeEvent(QEvent *event)
                                              "image: none;}"
                                              "QToolButton:hover {"
                                              "color: rgb(255, 255, 255);"
-                                             "background-color: rgb(200, 0, 0);"
+                                             "background-color: rgb(180, 0, 0);"
                                              "border: none;}"_s);
                 ui->tbtnMax->setIcon(QIcon(u":/icons/normal-light.png"_s));
             }
         }
     }
+	QMainWindow::changeEvent(event);
+}
+
+void FramelessMainWindow::focusInEvent(QFocusEvent *event)
+{
+	QMainWindow::focusInEvent(event);
+	QGraphicsDropShadowEffect *defaultShadow = new QGraphicsDropShadowEffect();
+    defaultShadow->setBlurRadius(15);
+    defaultShadow->setColor(QColor(0, 0, 0));
+    defaultShadow->setOffset(0, 0);
+    ui->centralWidget->setGraphicsEffect(defaultShadow);
+}
+
+void FramelessMainWindow::focusOutEvent(QFocusEvent *event)
+{
+	QMainWindow::focusOutEvent(event);
+	QGraphicsDropShadowEffect *defaultShadow = new QGraphicsDropShadowEffect();
+    defaultShadow->setBlurRadius(15);
+    defaultShadow->setColor(QColor(255, 255, 255));
+    defaultShadow->setOffset(0, 0);
+    ui->centralWidget->setGraphicsEffect(defaultShadow);
 }
 
 void FramelessMainWindow::tbtnCloseClicked()
@@ -434,3 +465,12 @@ void FramelessMainWindow::tbtnMinClicked()
     showMinimized();
 }
 
+void FramelessMainWindow::setWindowTitle(const QString &title)
+{
+	ui->labTitle->setText(title);
+}
+
+void FramelessMainWindow::showMessage(const QString &msg)
+{
+	ui->labStatus->setText(msg);
+}
