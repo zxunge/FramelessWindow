@@ -2,10 +2,11 @@
 #include "ui_framelessmainwindow.h"
 
 #include <QGraphicsDropShadowEffect>
-#include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <QMouseEvent>
 #include <QSize>
 #include <QToolButton>
+#include <QPixmap>
 
 using namespace Qt::Literals::StringLiterals;
 
@@ -18,7 +19,7 @@ FramelessMainWindow::FramelessMainWindow(QWidget *parent)
       m_windowMinWidth(500),
       m_windowMinHeight(300)
 {
-    Q_INIT_RESOURCE(resources);
+    Q_INIT_RESOURCE(fwres);
 
     ui->setupUi(this);
 
@@ -38,7 +39,8 @@ FramelessMainWindow::FramelessMainWindow(QWidget *parent)
 
     setSupportStretch(true);
 
-    m_bodyLayout = new QVBoxLayout(ui->bodyWidget);
+    m_bodyLayout = new QHBoxLayout(ui->bodyWidget);
+    m_cornerLayout = new QHBoxLayout(ui->cornerWidget);
 }
 
 FramelessMainWindow::~FramelessMainWindow()
@@ -471,4 +473,14 @@ void FramelessMainWindow::setWindowTitle(const QString &title)
 void FramelessMainWindow::showMessage(const QString &msg)
 {
     ui->labStatus->setText(msg);
+}
+
+void FramelessMainWindow::addCornerWidget(QWidget *wgt)
+{
+    m_cornerLayout->addWidget(wgt);
+}
+
+void FramelessMainWindow::setIcon(const QIcon &icon)
+{
+    ui->labIcon->setPixmap(icon.pixmap(QSize(16, 16)));
 }

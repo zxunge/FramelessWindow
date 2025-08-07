@@ -72,7 +72,7 @@ border-top-right-radius: 10px;
         <number>0</number>
        </property>
        <property name="leftMargin">
-        <number>0</number>
+        <number>10</number>
        </property>
        <property name="topMargin">
         <number>0</number>
@@ -83,6 +83,32 @@ border-top-right-radius: 10px;
        <property name="bottomMargin">
         <number>0</number>
        </property>
+       <item>
+        <widget class="QLabel" name="labIcon">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QWidget" name="cornerWidget" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
+       </item>
        <item>
         <spacer name="horizontalSpacer">
          <property name="orientation">
@@ -161,7 +187,7 @@ QToolButton:hover {
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="resources.qrc">
+          <iconset resource="fwres.qrc">
            <normaloff>:/icons/min-light.svg</normaloff>:/icons/min-light.svg</iconset>
          </property>
          <property name="iconSize">
@@ -209,7 +235,7 @@ QToolButton:hover {
           <string/>
          </property>
          <property name="icon">
-          <iconset resource="resources.qrc">
+          <iconset resource="fwres.qrc">
            <normaloff>:/icons/max-light.svg</normaloff>:/icons/max-light.svg</iconset>
          </property>
          <property name="iconSize">
@@ -268,8 +294,8 @@ QToolButton:hover {
          <property name="text">
           <string/>
          </property>
-		 <property name="icon">
-          <iconset resource="resources.qrc">
+         <property name="icon">
+          <iconset resource="fwres.qrc">
            <normaloff>:/icons/close-light.svg</normaloff>:/icons/close-light.svg</iconset>
          </property>
          <property name="iconSize">
@@ -313,7 +339,7 @@ border-bottom-right-radius: 10px;
         <number>0</number>
        </property>
        <property name="leftMargin">
-        <number>0</number>
+        <number>10</number>
        </property>
        <property name="topMargin">
         <number>0</number>
@@ -327,7 +353,7 @@ border-bottom-right-radius: 10px;
        <item>
         <widget class="QLabel" name="labStatus">
          <property name="text">
-          <string></string>
+          <string/>
          </property>
          <property name="scaledContents">
           <bool>true</bool>
@@ -354,7 +380,7 @@ border-bottom-right-radius: 10px;
   </widget>
  </widget>
  <resources>
-  <include location="resources.qrc"/>
+  <include location="fwres.qrc"/>
  </resources>
  <connections/>
 </ui>

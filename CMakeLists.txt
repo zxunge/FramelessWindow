@@ -17,7 +17,7 @@ qt_add_library(FramelessWindow STATIC
     framelessmainwindow.cpp
     framelessmainwindow.h
     framelessmainwindow.ui
-    resources.qrc
+    fwres.qrc
 )
 
 target_link_libraries(FramelessWindow PRIVATE Qt::Core Qt::Gui Qt::Widgets Qt::Svg)

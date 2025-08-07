@@ -5,11 +5,12 @@
 #include <QRect>
 #include <QPoint>
 #include <QPointF>
+#include <QIcon>
 
 namespace Ui {
 class FramelessMainWindow;
 }
-class QVBoxLayout;
+class QHBoxLayout;
 
 class FramelessMainWindow : public QMainWindow
 {
@@ -25,6 +26,9 @@ public:
     void showMessage(const QString &msg);
     void setMinimumHeight(int height) { m_windowMinHeight = height; }
     void setMinimumWidth(int width) { m_windowMinWidth = width; }
+
+    void addCornerWidget(QWidget *wgt);
+    void setIcon(const QIcon &icon);
 
 private:
     enum WindowStretchRectState {
@@ -63,7 +67,8 @@ private slots:
 private:
     Ui::FramelessMainWindow *ui;
 
-    QVBoxLayout *m_bodyLayout;
+    QHBoxLayout *m_bodyLayout;
+    QHBoxLayout *m_cornerLayout;
 
     QRect m_leftTopRect;
     QRect m_leftBottomRect;
