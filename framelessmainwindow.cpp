@@ -70,25 +70,24 @@ FramelessMainWindow::WindowStretchRectState
 FramelessMainWindow::getCurrentStretchState(QPoint cursorPos)
 {
     WindowStretchRectState stretchState;
-    if (m_leftTopRect.contains(cursorPos)) {
+    if (m_leftTopRect.contains(cursorPos))
         stretchState = LEFT_TOP_RECT;
-    } else if (m_rightTopRect.contains(cursorPos)) {
+    else if (m_rightTopRect.contains(cursorPos))
         stretchState = RIGHT_TOP_RECT;
-    } else if (m_rightBottomRect.contains(cursorPos)) {
+    else if (m_rightBottomRect.contains(cursorPos))
         stretchState = RIGHT_BOTTOM_RECT;
-    } else if (m_leftBottomRect.contains(cursorPos)) {
+    else if (m_leftBottomRect.contains(cursorPos))
         stretchState = LEFT_BOTTOM_RECT;
-    } else if (m_topBorderRect.contains(cursorPos)) {
+    else if (m_topBorderRect.contains(cursorPos))
         stretchState = TOP_BORDER;
-    } else if (m_rightBorderRect.contains(cursorPos)) {
+    else if (m_rightBorderRect.contains(cursorPos))
         stretchState = RIGHT_BORDER;
-    } else if (m_bottomBorderRect.contains(cursorPos)) {
+    else if (m_bottomBorderRect.contains(cursorPos))
         stretchState = BOTTOM_BORDER;
-    } else if (m_leftBorderRect.contains(cursorPos)) {
+    else if (m_leftBorderRect.contains(cursorPos))
         stretchState = LEFT_BORDER;
-    } else {
+    else
         stretchState = NO_SELECT;
-    }
     return stretchState;
 }
 
@@ -202,16 +201,13 @@ void FramelessMainWindow::updateWindowSize()
 
     case RIGHT_TOP_RECT: {
         if (geometry().width() - 3 <= m_windowMinWidth && delValueX <= 0
-            && geometry().height() - 3 <= m_windowMinHeight && delValueY <= 0) {
+            && geometry().height() - 3 <= m_windowMinHeight && delValueY <= 0)
             return;
-        }
         int a{};
-        if (geometry().width() - 3 <= m_windowMinWidth && delValueX <= 0) {
+        if (geometry().width() - 3 <= m_windowMinWidth && delValueX <= 0)
             a = 1;
-        }
-        if (geometry().height() - 3 <= m_windowMinHeight && delValueY <= 0) {
+        if (geometry().height() - 3 <= m_windowMinHeight && delValueY <= 0)
             a = 2;
-        }
 
         if (a == 0) {
             QPoint topRightPoint = windowRect.topRight();
@@ -246,16 +242,14 @@ void FramelessMainWindow::updateWindowSize()
 
     case LEFT_BOTTOM_RECT: {
         if (geometry().width() - 3 <= m_windowMinWidth && delValueX <= 0
-            && geometry().height() - 3 <= m_windowMinHeight && delValueY <= 0) {
+            && geometry().height() - 3 <= m_windowMinHeight && delValueY <= 0)
             return;
-        }
         int a{};
-        if (geometry().width() - 3 <= m_windowMinWidth && delValueX <= 0) {
+        if (geometry().width() - 3 <= m_windowMinWidth && delValueX <= 0)
             a = 1;
-        }
-        if (geometry().height() - 3 <= m_windowMinHeight && delValueY <= 0) {
+        if (geometry().height() - 3 <= m_windowMinHeight && delValueY <= 0)
             a = 2;
-        }
+
         if (a == 0) {
             QPoint bottomLeftPoint = windowRect.bottomLeft();
             bottomLeftPoint.setX(bottomLeftPoint.x() - delValueX);
@@ -325,6 +319,11 @@ void FramelessMainWindow::mouseMoveEvent(QMouseEvent *event)
         m_endPoint = mapToGlobal(event->pos());
         updateWindowSize();
     }
+
+    if (ui->tbtnClose->underMouse())
+        ui->tbtnClose->setIcon(QIcon(u":/icons/close-dark.svg"_s));
+    else
+        ui->tbtnClose->setIcon(QIcon(u":/icons/close-light.svg"_s));
     QMainWindow::mouseMoveEvent(event);
 }
 
@@ -338,9 +337,9 @@ void FramelessMainWindow::mouseReleaseEvent(QMouseEvent *event)
 
 void FramelessMainWindow::mouseDoubleClickEvent(QMouseEvent *event)
 {
-    if (ui->titleWidget->underMouse()) {
+    if (ui->titleWidget->underMouse())
         tbtnMaxClicked();
-    }
+
     QMainWindow::mouseDoubleClickEvent(event);
 }
 
@@ -384,7 +383,7 @@ void FramelessMainWindow::changeEvent(QEvent *event)
                                              "color: rgb(255, 255, 255);"
                                              "background-color: rgb(180, 0, 0);"
                                              "border: none;}"_s);
-                ui->tbtnMax->setIcon(QIcon(u":/icons/max-light.png"_s));
+                ui->tbtnMax->setIcon(QIcon(u":/icons/max-light.svg"_s));
             } else if (windowState() == Qt::WindowMaximized
                        && stateEvent->oldState() == Qt::WindowNoState) {
                 ui->centralWidget->setStyleSheet(
@@ -411,7 +410,7 @@ void FramelessMainWindow::changeEvent(QEvent *event)
                                              "color: rgb(255, 255, 255);"
                                              "background-color: rgb(180, 0, 0);"
                                              "border: none;}"_s);
-                ui->tbtnMax->setIcon(QIcon(u":/icons/normal-light.png"_s));
+                ui->tbtnMax->setIcon(QIcon(u":/icons/normal-light.svg"_s));
             }
         }
     }

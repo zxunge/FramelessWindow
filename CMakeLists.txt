@@ -20,7 +20,7 @@ qt_add_library(FramelessWindow STATIC
     resources.qrc
 )
 
-target_link_libraries(FramelessWindow PRIVATE Qt::Widgets)
+target_link_libraries(FramelessWindow PRIVATE Qt::Core Qt::Gui Qt::Widgets Qt::Svg)
 
 target_compile_definitions(FramelessWindow PRIVATE FRAMELESSWINDOW_LIBRARY)
 
