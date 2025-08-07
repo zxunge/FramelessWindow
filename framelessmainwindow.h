@@ -30,6 +30,8 @@ public:
     void addCornerWidget(QWidget *wgt);
     void setIcon(const QIcon &icon);
 
+    void addCentralWidget(QWidget *wgt);
+
 private:
     enum WindowStretchRectState {
         NO_SELECT = 0,

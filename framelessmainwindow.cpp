@@ -40,6 +40,7 @@ FramelessMainWindow::FramelessMainWindow(QWidget *parent)
     setSupportStretch(true);
 
     m_bodyLayout = new QHBoxLayout(ui->bodyWidget);
+    m_bodyLayout->setContentsMargins(0, 0, 0, 0);
     m_cornerLayout = new QHBoxLayout(ui->cornerWidget);
 }
 
@@ -483,4 +484,9 @@ void FramelessMainWindow::addCornerWidget(QWidget *wgt)
 void FramelessMainWindow::setIcon(const QIcon &icon)
 {
     ui->labIcon->setPixmap(icon.pixmap(QSize(16, 16)));
+}
+
+void FramelessMainWindow::addCentralWidget(QWidget *wgt)
+{
+    m_bodyLayout->addWidget(wgt);
 }
