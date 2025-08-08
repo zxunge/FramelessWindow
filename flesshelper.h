@@ -5,6 +5,10 @@
 
 #include <QWidget>
 #include <QMainWindow>
+#include <QStatusBar>
+#include <QString>
+#include <QGuiApplication>
+#include <QtAssert>
 
 #include <type_traits>
 
@@ -17,7 +21,17 @@ public:
     MakeMainWindowFrameless(QWidget *parent = nullptr) : FramelessMainWindow()
     {
         w = new T(parent);
+        Q_ASSERT(w != nullptr);
         addCentralWidget(w->centralWidget());
+
+        // Signals connection: StatusBar, Window Icon, Window Title
+        Q_ASSERT(w->statusBar() != nullptr);
+        connect(w->statusBar(), &QStatusBar::messageChanged, this,
+                [this](const QString &msg) { showMessage(msg); });
+        connect(w, &QMainWindow::windowIconChanged, this,
+                [this](const QIcon &icon) { setWindowIcon(icon); });
+        connect(w, &QMainWindow::windowTitleChanged, this,
+                [this](const QString &title) { setWindowTitle(title); });
     }
     ~MakeMainWindowFrameless() { delete w; }
 
