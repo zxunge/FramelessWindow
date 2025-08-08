@@ -7,7 +7,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-option(BUILD_EXAMPLES "Build the examples." ON)
+option(BUILD_EXAMPLES "Build the examples." OFF)
 
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Svg)
 
