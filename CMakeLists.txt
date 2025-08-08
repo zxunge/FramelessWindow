@@ -17,6 +17,7 @@ qt_add_library(FramelessWindow STATIC
     framelessmainwindow.cpp
     framelessmainwindow.h
     framelessmainwindow.ui
+    flesshelper.h
     fwres.qrc
 )
 

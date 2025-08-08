@@ -13,10 +13,10 @@ qt_standard_project_setup()
 
 qt_add_executable(FramelessWindowExample
     main.cpp
+    mainwindow.cpp
+    mainwindow.h
+    mainwindow.ui
     resources.qrc
-    widget.h
-    widget.cpp
-    widget.ui
 )
 
 set_target_properties(FramelessWindowExample PROPERTIES WIN32_EXECUTABLE TRUE)
