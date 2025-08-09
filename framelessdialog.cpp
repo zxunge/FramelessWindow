@@ -23,7 +23,7 @@ FramelessDialog::FramelessDialog(QWidget *parent)
 
     ui->setupUi(this);
 
-    setWindowFlags(Qt::FramelessWindowHint | Qt::WindowMinimizeButtonHint);
+    setWindowFlags(Qt::FramelessWindowHint);
     setAttribute(Qt::WA_TranslucentBackground, true);
     setContentsMargins(5, 5, 5, 5);
     setSizeGripEnabled(false);
@@ -39,6 +39,8 @@ FramelessDialog::FramelessDialog(QWidget *parent)
     connect(ui->tbtnMax, &QToolButton::clicked, this, &FramelessDialog::tbtnMaxClicked);
 
     ui->tbtnClose->installEventFilter(this);
+    ui->tbtnMax->setVisible(false);
+    ui->tbtnMin->setVisible(false);
 
     setSupportStretch(true);
 

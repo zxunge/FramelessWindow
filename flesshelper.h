@@ -54,8 +54,8 @@ public:
     {
         w = new T(parent);
         Q_ASSERT(w != nullptr);
+		addCentralWidget(w);
 
-        // Signals connection: StatusBar, Window Icon, Window Title
         setWindowIcon(w->windowIcon());
         setWindowTitle(w->windowTitle());
     }
