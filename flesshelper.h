@@ -22,6 +22,7 @@ public:
     {
         w = new T(parent);
         Q_ASSERT(w != nullptr);
+        Q_ASSERT(w->centralWidget() != nullptr);
         addCentralWidget(w->centralWidget());
 
         // Signals connection: StatusBar, Window Icon, Window Title
@@ -32,6 +33,9 @@ public:
                 [this](const QIcon &icon) { setWindowIcon(icon); });
         connect(w, &QMainWindow::windowTitleChanged, this,
                 [this](const QString &title) { setWindowTitle(title); });
+
+        setWindowIcon(w->windowIcon());
+        setWindowTitle(w->windowTitle());
     }
     ~MakeMainWindowFrameless() { delete w; }
 

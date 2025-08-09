@@ -7,6 +7,7 @@
 #include <QSize>
 #include <QToolButton>
 #include <QPixmap>
+#include <QApplication>
 
 using namespace Qt::Literals::StringLiterals;
 
@@ -269,10 +270,9 @@ void FramelessMainWindow::setSupportStretch(bool isSupportStretch)
 {
     m_isSupportStretch = isSupportStretch;
     setMouseTracking(isSupportStretch);
-    ui->tailWidget->setMouseTracking(isSupportStretch);
-    ui->titleWidget->setMouseTracking(isSupportStretch);
-    ui->centralWidget->setMouseTracking(isSupportStretch);
-    ui->bodyWidget->setMouseTracking(isSupportStretch);
+    const QWidgetList allWidgets = QApplication::allWidgets();
+    for (QWidget *widget : allWidgets)
+        widget->setMouseTracking(isSupportStretch);
 }
 
 void FramelessMainWindow::mousePressEvent(QMouseEvent *event)
@@ -489,4 +489,5 @@ void FramelessMainWindow::setIcon(const QIcon &icon)
 void FramelessMainWindow::addCentralWidget(QWidget *wgt)
 {
     m_bodyLayout->addWidget(wgt);
+    setSupportStretch(true);
 }
