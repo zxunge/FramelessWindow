@@ -1,24 +1,24 @@
-#ifndef FRAMELESSMAINWINDOW_H
-#define FRAMELESSMAINWINDOW_H
+#ifndef FRAMELESSDIALOG_H
+#define FRAMELESSDIALOG_H
 
-#include <QMainWindow>
-#include <QRect>
+#include <QDialog>
 #include <QPoint>
 #include <QPointF>
 #include <QIcon>
+#include <QRect>
 
 namespace Ui {
-class FramelessMainWindow;
+class FramelessDialog;
 }
 class QHBoxLayout;
 
-class FramelessMainWindow : public QMainWindow
+class FramelessDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    FramelessMainWindow(QWidget *parent = nullptr);
-    ~FramelessMainWindow();
+    explicit FramelessDialog(QWidget *parent = nullptr);
+    ~FramelessDialog();
 
     void setSupportStretch(bool isSupportStretch);
 
@@ -68,7 +68,7 @@ private slots:
     void tbtnMinClicked();
 
 private:
-    Ui::FramelessMainWindow *ui;
+    Ui::FramelessDialog *ui;
 
     QHBoxLayout *m_bodyLayout;
     QHBoxLayout *m_cornerLayout;
@@ -102,4 +102,4 @@ private:
     static constexpr int STRETCH_RECT_WIDTH = 10;
 };
 
-#endif // FRAMELESSMAINWINDOW_H
+#endif // FRAMELESSDIALOG_H

@@ -1,5 +1,5 @@
-#include "framelessmainwindow.h"
-#include "ui_framelessmainwindow.h"
+#include "framelessdialog.h"
+#include "ui_framelessdialog.h"
 
 #include <QGraphicsDropShadowEffect>
 #include <QHBoxLayout>
@@ -11,9 +11,9 @@
 
 using namespace Qt::Literals::StringLiterals;
 
-FramelessMainWindow::FramelessMainWindow(QWidget *parent)
-    : QMainWindow(parent),
-      ui(new Ui::FramelessMainWindow),
+FramelessDialog::FramelessDialog(QWidget *parent)
+    : QDialog(parent),
+      ui(new Ui::FramelessDialog),
       m_showFlag(false),
       m_isPressedWidget(false),
       m_windowMinWidth(500),
@@ -26,6 +26,7 @@ FramelessMainWindow::FramelessMainWindow(QWidget *parent)
     setWindowFlags(Qt::FramelessWindowHint | Qt::WindowMinimizeButtonHint);
     setAttribute(Qt::WA_TranslucentBackground, true);
     setContentsMargins(5, 5, 5, 5);
+    setSizeGripEnabled(false);
 
     QGraphicsDropShadowEffect *defaultShadow = new QGraphicsDropShadowEffect();
     defaultShadow->setBlurRadius(15);
@@ -33,9 +34,9 @@ FramelessMainWindow::FramelessMainWindow(QWidget *parent)
     defaultShadow->setOffset(0, 0);
     ui->centralWidget->setGraphicsEffect(defaultShadow);
 
-    connect(ui->tbtnClose, &QToolButton::clicked, this, &FramelessMainWindow::tbtnCloseClicked);
-    connect(ui->tbtnMin, &QToolButton::clicked, this, &FramelessMainWindow::tbtnMinClicked);
-    connect(ui->tbtnMax, &QToolButton::clicked, this, &FramelessMainWindow::tbtnMaxClicked);
+    connect(ui->tbtnClose, &QToolButton::clicked, this, &FramelessDialog::tbtnCloseClicked);
+    connect(ui->tbtnMin, &QToolButton::clicked, this, &FramelessDialog::tbtnMinClicked);
+    connect(ui->tbtnMax, &QToolButton::clicked, this, &FramelessDialog::tbtnMaxClicked);
 
     ui->tbtnClose->installEventFilter(this);
 
@@ -46,12 +47,12 @@ FramelessMainWindow::FramelessMainWindow(QWidget *parent)
     m_cornerLayout = new QHBoxLayout(ui->cornerWidget);
 }
 
-FramelessMainWindow::~FramelessMainWindow()
+FramelessDialog::~FramelessDialog()
 {
     delete ui;
 }
 
-void FramelessMainWindow::calculateCurrentStrechRect()
+void FramelessDialog::calculateCurrentStrechRect()
 {
     m_leftTopRect = QRect(0, 0, STRETCH_RECT_WIDTH, STRETCH_RECT_HEIGHT);
     m_leftBottomRect =
@@ -71,8 +72,7 @@ void FramelessMainWindow::calculateCurrentStrechRect()
             QRect(0, STRETCH_RECT_HEIGHT, STRETCH_RECT_WIDTH, height() - STRETCH_RECT_HEIGHT * 2);
 }
 
-FramelessMainWindow::WindowStretchRectState
-FramelessMainWindow::getCurrentStretchState(QPoint cursorPos)
+FramelessDialog::WindowStretchRectState FramelessDialog::getCurrentStretchState(QPoint cursorPos)
 {
     WindowStretchRectState stretchState;
     if (m_leftTopRect.contains(cursorPos))
@@ -96,7 +96,7 @@ FramelessMainWindow::getCurrentStretchState(QPoint cursorPos)
     return stretchState;
 }
 
-void FramelessMainWindow::updateMouseStyle(WindowStretchRectState stretchState)
+void FramelessDialog::updateMouseStyle(WindowStretchRectState stretchState)
 {
     switch (stretchState) {
     case LEFT_TOP_RECT:
@@ -125,7 +125,7 @@ void FramelessMainWindow::updateMouseStyle(WindowStretchRectState stretchState)
     }
 }
 
-void FramelessMainWindow::updateWindowSize()
+void FramelessDialog::updateWindowSize()
 {
     QRect windowRect = m_windowRectBeforeStretch;
     int delValueX = m_startPoint.x() - m_endPoint.x();
@@ -265,7 +265,7 @@ void FramelessMainWindow::updateWindowSize()
     }
 }
 
-void FramelessMainWindow::setSupportStretch(bool isSupportStretch)
+void FramelessDialog::setSupportStretch(bool isSupportStretch)
 {
     m_isSupportStretch = isSupportStretch;
     setMouseTracking(isSupportStretch);
@@ -274,7 +274,7 @@ void FramelessMainWindow::setSupportStretch(bool isSupportStretch)
         widget->setMouseTracking(isSupportStretch);
 }
 
-void FramelessMainWindow::mousePressEvent(QMouseEvent *event)
+void FramelessDialog::mousePressEvent(QMouseEvent *event)
 {
     if (ui->titleWidget->underMouse() && !m_showFlag) {
         m_isPressedWidget = true;
@@ -286,10 +286,10 @@ void FramelessMainWindow::mousePressEvent(QMouseEvent *event)
         m_startPoint = mapToGlobal(event->pos());
         m_windowRectBeforeStretch = geometry();
     }
-    QMainWindow::mousePressEvent(event);
+    QDialog::mousePressEvent(event);
 }
 
-void FramelessMainWindow::mouseMoveEvent(QMouseEvent *event)
+void FramelessDialog::mouseMoveEvent(QMouseEvent *event)
 {
     if (m_isPressedWidget) {
         int dx = event->globalPosition().x() - m_last.x();
@@ -307,38 +307,38 @@ void FramelessMainWindow::mouseMoveEvent(QMouseEvent *event)
         updateWindowSize();
     }
 
-    QMainWindow::mouseMoveEvent(event);
+    QDialog::mouseMoveEvent(event);
 }
 
-void FramelessMainWindow::mouseReleaseEvent(QMouseEvent *event)
+void FramelessDialog::mouseReleaseEvent(QMouseEvent *event)
 {
     m_isPressedWidget = false;
     m_isMousePressed = false;
     calculateCurrentStrechRect();
-    QMainWindow::mouseReleaseEvent(event);
+    QDialog::mouseReleaseEvent(event);
 }
 
-void FramelessMainWindow::mouseDoubleClickEvent(QMouseEvent *event)
+void FramelessDialog::mouseDoubleClickEvent(QMouseEvent *event)
 {
     if (ui->titleWidget->underMouse())
         tbtnMaxClicked();
 
-    QMainWindow::mouseDoubleClickEvent(event);
+    QDialog::mouseDoubleClickEvent(event);
 }
 
-void FramelessMainWindow::showEvent(QShowEvent *event)
+void FramelessDialog::showEvent(QShowEvent *event)
 {
     calculateCurrentStrechRect();
 
     setAttribute(Qt::WA_Mapped);
-    QMainWindow::showEvent(event);
+    QDialog::showEvent(event);
 
     QSize oldSize = size();
     resize(oldSize + QSize(10, 10));
     resize(oldSize);
 }
 
-void FramelessMainWindow::changeEvent(QEvent *event)
+void FramelessDialog::changeEvent(QEvent *event)
 {
     if (QEvent::WindowStateChange == event->type()) {
         QWindowStateChangeEvent *stateEvent = dynamic_cast<QWindowStateChangeEvent *>(event);
@@ -397,12 +397,12 @@ void FramelessMainWindow::changeEvent(QEvent *event)
             }
         }
     }
-    QMainWindow::changeEvent(event);
+    QDialog::changeEvent(event);
 }
 
-void FramelessMainWindow::focusInEvent(QFocusEvent *event)
+void FramelessDialog::focusInEvent(QFocusEvent *event)
 {
-    QMainWindow::focusInEvent(event);
+    QDialog::focusInEvent(event);
     QGraphicsDropShadowEffect *defaultShadow = new QGraphicsDropShadowEffect();
     defaultShadow->setBlurRadius(15);
     defaultShadow->setColor(Qt::black);
@@ -410,9 +410,9 @@ void FramelessMainWindow::focusInEvent(QFocusEvent *event)
     ui->centralWidget->setGraphicsEffect(defaultShadow);
 }
 
-void FramelessMainWindow::focusOutEvent(QFocusEvent *event)
+void FramelessDialog::focusOutEvent(QFocusEvent *event)
 {
-    QMainWindow::focusOutEvent(event);
+    QDialog::focusOutEvent(event);
     QGraphicsDropShadowEffect *defaultShadow = new QGraphicsDropShadowEffect();
     defaultShadow->setBlurRadius(15);
     defaultShadow->setColor(Qt::transparent);
@@ -420,7 +420,7 @@ void FramelessMainWindow::focusOutEvent(QFocusEvent *event)
     ui->centralWidget->setGraphicsEffect(defaultShadow);
 }
 
-bool FramelessMainWindow::eventFilter(QObject *obj, QEvent *event)
+bool FramelessDialog::eventFilter(QObject *obj, QEvent *event)
 {
     if (obj == ui->tbtnClose) {
         switch (event->type()) {
@@ -436,15 +436,15 @@ bool FramelessMainWindow::eventFilter(QObject *obj, QEvent *event)
             break;
         }
     }
-    return QMainWindow::eventFilter(obj, event);
+    return QDialog::eventFilter(obj, event);
 }
 
-void FramelessMainWindow::tbtnCloseClicked()
+void FramelessDialog::tbtnCloseClicked()
 {
     close();
 }
 
-void FramelessMainWindow::tbtnMaxClicked()
+void FramelessDialog::tbtnMaxClicked()
 {
     if (!m_showFlag) {
         setContentsMargins(0, 0, 0, 0);
@@ -458,32 +458,32 @@ void FramelessMainWindow::tbtnMaxClicked()
     }
 }
 
-void FramelessMainWindow::tbtnMinClicked()
+void FramelessDialog::tbtnMinClicked()
 {
     showMinimized();
 }
 
-void FramelessMainWindow::setWindowTitle(const QString &title)
+void FramelessDialog::setWindowTitle(const QString &title)
 {
     ui->labTitle->setText(title);
 }
 
-void FramelessMainWindow::showMessage(const QString &msg)
+void FramelessDialog::showMessage(const QString &msg)
 {
     ui->labStatus->setText(msg);
 }
 
-void FramelessMainWindow::addCornerWidget(QWidget *wgt)
+void FramelessDialog::addCornerWidget(QWidget *wgt)
 {
     m_cornerLayout->addWidget(wgt);
 }
 
-void FramelessMainWindow::setWindowIcon(const QIcon &icon)
+void FramelessDialog::setWindowIcon(const QIcon &icon)
 {
     ui->labIcon->setPixmap(icon.pixmap(QSize(16, 16)));
 }
 
-void FramelessMainWindow::addCentralWidget(QWidget *wgt)
+void FramelessDialog::addCentralWidget(QWidget *wgt)
 {
     m_bodyLayout->addWidget(wgt);
     setSupportStretch(true);

@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
     MakeMainWindowFrameless<MainWindow> w;
     w.setWindowTitle(QObject::tr("Hello"));
     w.showMessage(QObject::tr("This is Hello Window."));
-    w.setIcon(QIcon(":/icons/icon.png"));
+    w.setWindowIcon(QIcon(":/icons/icon.png"));
     w.show();
     return a.exec();
 }

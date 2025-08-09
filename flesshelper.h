@@ -2,6 +2,7 @@
 #define FLESSHELPER_H
 
 #include "framelessmainwindow.h"
+#include "framelessdialog.h"
 
 #include <QWidget>
 #include <QMainWindow>
@@ -38,6 +39,27 @@ public:
         setWindowTitle(w->windowTitle());
     }
     ~MakeMainWindowFrameless() { delete w; }
+
+private:
+    T *w; // Central widget used
+};
+
+template <typename T>
+class MakeDialogFrameless : public FramelessDialog
+{
+    static_assert(std::is_base_of<QDialog, T>::value, "Not derived from QDialog.");
+
+public:
+    MakeDialogFrameless(QWidget *parent = nullptr) : FramelessDialog()
+    {
+        w = new T(parent);
+        Q_ASSERT(w != nullptr);
+
+        // Signals connection: StatusBar, Window Icon, Window Title
+        setWindowIcon(w->windowIcon());
+        setWindowTitle(w->windowTitle());
+    }
+    ~MakeDialogFrameless() { delete w; }
 
 private:
     T *w; // Central widget used
