@@ -54,7 +54,7 @@ public:
     {
         w = new T(parent);
         Q_ASSERT(w != nullptr);
-		addCentralWidget(w);
+        addCentralWidget(w);
 
         setWindowIcon(w->windowIcon());
         setWindowTitle(w->windowTitle());

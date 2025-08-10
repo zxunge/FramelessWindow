@@ -24,6 +24,10 @@ qt_add_library(FramelessWindow STATIC
     fwres.qrc
 )
 
+if(WIN32)
+    add_subdirectory(win)
+endif()
+
 target_link_libraries(FramelessWindow PRIVATE Qt::Core Qt::Gui Qt::Widgets Qt::Svg)
 
 target_compile_definitions(FramelessWindow PRIVATE FRAMELESSWINDOW_LIBRARY)
