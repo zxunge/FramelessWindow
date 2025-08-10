@@ -24,8 +24,16 @@ public:
 
     void setWindowTitle(const QString &title);
     void showMessage(const QString &msg);
-    void setMinimumHeight(int height) { m_windowMinHeight = height; }
-    void setMinimumWidth(int width) { m_windowMinWidth = width; }
+    void setMinimumHeight(int height)
+    {
+        m_windowMinHeight = height;
+        QMainWindow::setMinimumHeight(height);
+    }
+    void setMinimumWidth(int width)
+    {
+        m_windowMinWidth = width;
+        QMainWindow::setMinimumWidth(width);
+    }
 
     void addCornerWidget(QWidget *wgt);
     void setWindowIcon(const QIcon &icon);

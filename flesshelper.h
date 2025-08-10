@@ -37,6 +37,8 @@ public:
 
         setWindowIcon(w->windowIcon());
         setWindowTitle(w->windowTitle());
+        setMinimumHeight(w->minimumHeight());
+        setMinimumWidth(w->minimumWidth());
     }
     ~MakeMainWindowFrameless() { delete w; }
 
@@ -58,6 +60,8 @@ public:
 
         setWindowIcon(w->windowIcon());
         setWindowTitle(w->windowTitle());
+        setMinimumHeight(w->minimumHeight());
+        setMinimumWidth(w->minimumWidth());
     }
     ~MakeDialogFrameless() { delete w; }
 
