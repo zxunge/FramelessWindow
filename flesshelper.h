@@ -9,6 +9,7 @@
 #include <QStatusBar>
 #include <QString>
 #include <QGuiApplication>
+#include <QStyle>
 #include <QtAssert>
 
 #include <type_traits>
@@ -42,6 +43,9 @@ public:
     }
     ~MakeMainWindowFrameless() { delete w; }
 
+    void setStyle(QStyle *s) { w->setStyle(s); }
+    void setStyleSheet(const QString &s) { w->setStyleSheet(s); }
+
 private:
     T *w; // Central widget used
 };
@@ -64,6 +68,9 @@ public:
         setMinimumWidth(w->minimumWidth());
     }
     ~MakeDialogFrameless() { delete w; }
+
+    void setStyle(QStyle *s) { w->setStyle(s); }
+    void setStyleSheet(const QString &s) { w->setStyleSheet(s); }
 
 private:
     T *w; // Central widget used
